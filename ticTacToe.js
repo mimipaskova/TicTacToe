@@ -41,7 +41,7 @@ var update = function() {
 
 	drawBoard();
 	drawFullBoard();
-	if(!isWinningComputer())
+	if(!isWinningComputer() && !isEqual())
 		setTimeout(update, 60);
 }
 
@@ -51,6 +51,29 @@ var isWinningComputer = function() {
 		||	compareBoxes(0, 0, 1, 1, 2, 2) || 	compareBoxes(0, 2, 1, 1, 2, 0))
 	{
 		alert("The computer wins!");
+		return true;
+	}
+	return false;
+}
+
+var hasNulls = function() {
+	var filtered = board.map(function(element) {
+		var inputfiltered = element.filter(function(elem) {
+			// console.log(element);
+			return elem == null;
+		});
+		return inputfiltered.length;
+	});
+	return filtered;
+}
+
+var isEqual = function() {
+	var arr = hasNulls();
+	arr = arr.filter(function(element) {
+		return element != 0;
+	});
+	if(arr.length == 0) {
+		alert("No one wins!");
 		return true;
 	}
 	return false;
